@@ -2,14 +2,15 @@ import { Component } from 'react';
 import * as ImageService from './Services/Api';
 import { Searchbar } from './Searchbar/Searcbar';
 // import { isVisible } from '@testing-library/user-event/dist/utils';
-import { ImageGalleryItem } from './ImageGalleryItem/ImageGaleryItem';
-import { ImageGallery } from './ImageGallery/ImageGalery';
-// import { ImageGalleryItem, ImageGallery } from 'components';
+import { ImageGalleryItem } from './ImageGalleryItem/ImageGalleryItem';
+import { ImageGallery } from './ImageGallery/ImageGallery';
+import { Button } from './Button/Button';
+import { FidgetSpinner } from 'react-loader-spinner';
 
 class App extends Component {
   state = {
     query: '',
-    image: [],
+    images: [],
     page: 1,
     isLoading: false,
     error: null,
@@ -32,15 +33,14 @@ class App extends Component {
       const {
         page: currentPage,
         hits,
-        per_page,
         totalHits,
       } = await ImageService.getImages(query, page);
       if (hits.lenghts === 0) {
         this.setState({ isEmpty: true });
       }
       this.setState(prevState => ({
-        images: [...prevState.hits, ...hits],
-        isVisible: this.state.page < Math.ceil(totalHits / per_page),
+        images: [...prevState.images, ...hits],
+        isVisible: this.state.page < Math.ceil(totalHits / 12),
       }));
     } catch (error) {
       this.setState({ error: 'Something went wrong' });
@@ -50,7 +50,16 @@ class App extends Component {
   };
 
   onHanldeSubmit = searchQuery => {
-    this.setState({ query: searchQuery });
+    this.setState({
+      query: searchQuery,
+      page: 1,
+      images: [],
+      error: null,
+      isEmpty: false,
+    });
+  };
+  onLoadMore = () => {
+    this.setState(prevState => ({ page: prevState.page + 1 }));
   };
   render() {
     const { images, isVisible, isEmpty, isLoading, error } = this.state;
@@ -58,17 +67,17 @@ class App extends Component {
       <>
         <Searchbar onSubmit={this.onHanldeSubmit} />
         {isEmpty && (
-          <div textAlign="center">Sorry. There are no images ... 😭</div>
+          <h3 textAlign="center">Sorry. There are no images ... 😭</h3>
         )}
-        {error && (
-          <div textAlign="center">❌ Something went wrong - {error}</div>
+        {error && <h3 textAlign="center">❌ Something went wrong - {error}</h3>}
+        <ImageGallery>
+          <ImageGalleryItem images={images} />
+        </ImageGallery>
+        {isVisible && !isLoading && images.length > 0 && (
+          <Button onClick={this.onLoadMore}>
+            {isLoading ? 'Loading' : 'Load more'}
+          </Button>
         )}
-        {/* <ImageGallery>
-          {images > 0 &&
-            images.map(({ tags, id, webformatURL }) => (
-              <ImageGalleryItem key={id}></ImageGalleryItem>
-            ))}
-        </ImageGallery> */}
       </>
     );
   }

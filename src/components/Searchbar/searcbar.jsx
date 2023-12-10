@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import { FiSearch } from 'react-icons/fi';
+import css from '../Styles/styles.module.css';
 
 export class Searchbar extends Component {
   state = {
@@ -19,16 +20,16 @@ export class Searchbar extends Component {
   render() {
     const { searchQuery } = this.state;
     return (
-      <header className="searchbar">
-        <form className="form" onSubmit={this.handleSubmit}>
-          <button type="submit" className="button">
-            <FiSearch size="10px" />
+      <header className={css.Searchbar}>
+        <form className={css.SearchForm} onSubmit={this.handleSubmit}>
+          <button type="submit" className={css.SearchFormButton}>
+            <FiSearch size="18px" />
           </button>
 
           <input
             value={searchQuery}
             onChange={this.handleChange}
-            className="input"
+            className={css.SearchFormInput}
             type="text"
             autoComplete="off"
             autoFocus

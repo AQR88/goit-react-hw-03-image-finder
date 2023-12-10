@@ -1,37 +1,18 @@
 import Modal from 'react-modal';
+import css from './Modal.module.css';
 
 Modal.setAppElement('#root');
 
-export const MyModal = ({ modalIsOpen, closeModal, largeImg, tags }) => {
+export const Modal = ({ modalIsOpen, closeModal, largeImg, tags }) => {
   return (
     <Modal
       isOpen={modalIsOpen}
       onRequestClose={closeModal}
-      style={{
-        overlay: {
-          position: 'fixed',
-          top: '0',
-          left: '0',
-          width: '100vw',
-          height: '100vh',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          backgroundColor: 'rgba(63, 81, 181, 0.12)',
-          zIndex: '1200',
-        },
-        content: {
-          top: '50%',
-          left: '50%',
-          right: 'auto',
-          bottom: 'auto',
-          marginRight: '-50%',
-          transform: 'translate(-50%, -50%)',
-        },
-      }}
+      className={css.Modal}
+      overlayClassName={css.Overlay}
       contentLabel="Example Modal"
     >
-      <img src={largeImg} alt={tags} />
+      <img className={css.Img} src={largeImg} alt={tags} />
     </Modal>
   );
 };

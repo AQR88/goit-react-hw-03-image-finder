@@ -1,7 +1,6 @@
 import { Component } from 'react';
 import * as ImageService from './Services/Api';
 import { Searchbar } from './Searchbar/Searcbar';
-// import { isVisible } from '@testing-library/user-event/dist/utils';
 import { ImageGalleryItem } from './ImageGalleryItem/ImageGalleryItem';
 import { ImageGallery } from './ImageGallery/ImageGallery';
 import { Button } from './Button/Button';
@@ -16,9 +15,10 @@ class App extends Component {
     error: null,
     isEmpty: false,
     isVisible: false,
+    showModal: false,
   };
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(_, prevState) {
     const { query, page } = this.state;
     if (prevState.query !== query || prevState.page !== page) {
       this.getImages(query, page);
@@ -30,17 +30,13 @@ class App extends Component {
       this.setState({ isLoading: true });
     }
     try {
-      const {
-        page: currentPage,
-        hits,
-        totalHits,
-      } = await ImageService.getImages(query, page);
-      if (hits.lenghts === 0) {
+      const { hits, totalHits } = await ImageService.getImages(query, page);
+      if (hits.length === 0) {
         this.setState({ isEmpty: true });
       }
       this.setState(prevState => ({
         images: [...prevState.images, ...hits],
-        isVisible: this.state.page < Math.ceil(totalHits / 12),
+        isVisible: hits.length < Math.ceil(totalHits / 12),
       }));
     } catch (error) {
       this.setState({ error: 'Something went wrong' });
@@ -59,24 +55,44 @@ class App extends Component {
     });
   };
   onLoadMore = () => {
-    this.setState(prevState => ({ page: prevState.page + 1 }));
+    this.setState(prevState => ({ page: prevState.page + 1, isLoading: true }));
   };
   render() {
     const { images, isVisible, isEmpty, isLoading, error } = this.state;
     return (
       <>
         <Searchbar onSubmit={this.onHanldeSubmit} />
+
         {isEmpty && (
-          <h3 textAlign="center">Sorry. There are no images ... 😭</h3>
+          <h3 style={{ textAlign: 'center' }}>
+            Sorry. There are no images ... 😭
+          </h3>
         )}
-        {error && <h3 textAlign="center">❌ Something went wrong - {error}</h3>}
+        {error && (
+          <h3 style={{ textAlign: 'center' }}>
+            ❌ Something went wrong - {error}
+          </h3>
+        )}
         <ImageGallery>
           <ImageGalleryItem images={images} />
         </ImageGallery>
+
         {isVisible && !isLoading && images.length > 0 && (
           <Button onClick={this.onLoadMore}>
             {isLoading ? 'Loading' : 'Load more'}
           </Button>
+        )}
+        {!isLoading && (
+          <FidgetSpinner
+            visible={true}
+            height="80"
+            width="80"
+            ariaLabel="dna-loading"
+            wrapperStyle={{}}
+            wrapperClass=""
+            ballColors={['#ff0000', '#00ff00', '#0000ff']}
+            backgroundColor="#F4442E"
+          />
         )}
       </>
     );

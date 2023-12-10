@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import css from '../Styles/styles.module.css';
-import { MyModal } from 'components/Modal/Modal.jsx';
+import { Modal } from 'components/Modal/Modal.jsx';
 
 export class ImageGalleryItem extends Component {
   state = {
@@ -15,9 +15,9 @@ export class ImageGalleryItem extends Component {
     this.setState({ showModal: false, largeImageURL: '', tags: '' });
   };
   render() {
-    return this.props.images.map(
-      ({ id, webformatURL, tags, largeImageURL }) => {
-        return (
+    return (
+      <>
+        {this.props.images.map(({ id, webformatURL, tags, largeImageURL }) => (
           <>
             <li
               className={css.ImageGalleryItem}
@@ -30,17 +30,15 @@ export class ImageGalleryItem extends Component {
                 alt={tags}
               />
             </li>
-            {/* {this.state.showModal && (
-              <MyModal
-                modalIsOpen={this.state.showModal}
-                closeModal={this.onCloseModal}
-                largeImg={this.state.largeImageURL}
-                tags={this.state.tags}
-              />
-            )} */}
           </>
-        );
-      }
+        ))}
+        <Modal
+          modalIsOpen={this.state.showModal}
+          closeModal={this.onCloseModal}
+          largeImg={this.state.largeImageURL}
+          tags={this.state.tags}
+        />
+      </>
     );
   }
 }

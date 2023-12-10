@@ -3,7 +3,7 @@ import css from './Modal.module.css';
 
 Modal.setAppElement('#root');
 
-export const Modal = ({ modalIsOpen, closeModal, largeImg, tags }) => {
+export const MyModal = ({ modalIsOpen, closeModal, largeImg, tags }) => {
   return (
     <Modal
       isOpen={modalIsOpen}

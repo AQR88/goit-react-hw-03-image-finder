@@ -39,7 +39,7 @@ class App extends Component {
         isVisible: hits.length < Math.ceil(totalHits / 12),
       }));
     } catch (error) {
-      this.setState({ error: 'Something went wrong' });
+      this.setState({ error: alert(`Something went wrong: ${error}`) });
     } finally {
       this.setState({ isLoading: false });
     }
@@ -82,14 +82,14 @@ class App extends Component {
             {isLoading ? 'Loading' : 'Load more'}
           </Button>
         )}
-        {!isLoading && (
+        {isLoading && (
           <FidgetSpinner
             visible={true}
             height="80"
             width="80"
             ariaLabel="dna-loading"
-            wrapperStyle={{}}
-            wrapperClass=""
+            wrapperStyle={{ marginLeft: '50%' }}
+            wrapperClass="dna-wrapper"
             ballColors={['#ff0000', '#00ff00', '#0000ff']}
             backgroundColor="#F4442E"
           />

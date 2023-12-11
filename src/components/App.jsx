@@ -4,7 +4,8 @@ import { Searchbar } from './Searchbar/Searchbar';
 import { ImageGalleryItem } from './ImageGalleryItem/ImageGalleryItem';
 import { ImageGallery } from './ImageGallery/ImageGallery';
 import { Button } from './Button/Button';
-import { FidgetSpinner } from 'react-loader-spinner';
+// import { FidgetSpinner } from 'react-loader-spinner';
+import { Loader } from './Loader/Loader';
 
 class App extends Component {
   state = {
@@ -62,7 +63,6 @@ class App extends Component {
     return (
       <>
         <Searchbar onSubmit={this.onHanldeSubmit} />
-
         {isEmpty && (
           <h3 style={{ textAlign: 'center' }}>
             Sorry. There are no images ... 😭
@@ -76,24 +76,12 @@ class App extends Component {
         <ImageGallery>
           <ImageGalleryItem images={images} />
         </ImageGallery>
-
         {isVisible && !isLoading && images.length > 0 && (
           <Button onClick={this.onLoadMore}>
             {isLoading ? 'Loading' : 'Load more'}
           </Button>
         )}
-        {isLoading && (
-          <FidgetSpinner
-            visible={true}
-            height="80"
-            width="80"
-            ariaLabel="dna-loading"
-            wrapperStyle={{ marginLeft: '45%' }}
-            wrapperClass="dna-wrapper"
-            ballColors={['#ff0000', '#00ff00', '#0000ff']}
-            backgroundColor="#F4442E"
-          />
-        )}
+        {isLoading && <Loader />};
       </>
     );
   }

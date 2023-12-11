@@ -88,7 +88,7 @@ class App extends Component {
             height="80"
             width="80"
             ariaLabel="dna-loading"
-            wrapperStyle={{ marginLeft: '50%' }}
+            wrapperStyle={{ marginLeft: '45%' }}
             wrapperClass="dna-wrapper"
             ballColors={['#ff0000', '#00ff00', '#0000ff']}
             backgroundColor="#F4442E"

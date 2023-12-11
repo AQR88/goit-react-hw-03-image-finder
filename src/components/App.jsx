@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import * as ImageService from './Services/Api';
-import { Searchbar } from './Searchbar/Searcbar';
+import { Searchbar } from './Searchbar/Searchbar';
 import { ImageGalleryItem } from './ImageGalleryItem/ImageGalleryItem';
 import { ImageGallery } from './ImageGallery/ImageGallery';
 import { Button } from './Button/Button';

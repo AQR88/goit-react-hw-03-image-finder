@@ -36,7 +36,7 @@ class App extends Component {
       }
       this.setState(prevState => ({
         images: [...prevState.images, ...hits],
-        isVisible: hits.length < Math.ceil(totalHits / 12),
+        isVisible: page < Math.ceil(totalHits / 12),
       }));
     } catch (error) {
       this.setState({ error: alert(`Something went wrong: ${error}`) });

@@ -4,6 +4,7 @@ import { Searchbar } from './Searchbar/Searchbar';
 import { ImageGalleryItem } from './ImageGalleryItem/ImageGalleryItem';
 import { ImageGallery } from './ImageGallery/ImageGallery';
 import { Button } from './Button/Button';
+// import { FidgetSpinner } from 'react-loader-spinner';
 import { Loader } from './Loader/Loader';
 
 class App extends Component {

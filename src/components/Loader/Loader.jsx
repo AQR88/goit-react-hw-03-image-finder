@@ -1,6 +1,6 @@
 import { FidgetSpinner } from 'react-loader-spinner';
 
-export const Loader = () => {
+export const Loader = ({ children }) => {
   return (
     <FidgetSpinner
       visible={true}
@@ -11,7 +11,9 @@ export const Loader = () => {
       wrapperClass="dna-wrapper"
       ballColors={['#ff0000', '#00ff00', '#0000ff']}
       backgroundColor="#F4442E"
-    />
+    >
+      {children}
+    </FidgetSpinner>
   );
 };
 // import { Facebook } from 'react-content-loader';

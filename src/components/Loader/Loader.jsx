@@ -14,3 +14,9 @@ export const Loader = () => {
     />
   );
 };
+// import { Facebook } from 'react-content-loader';
+
+// export const MyFacebookLoader = () => <Facebook />;
+// import { Instagram } from 'react-content-loader';
+
+// export const MyInstagramLoader = () => <Instagram />;

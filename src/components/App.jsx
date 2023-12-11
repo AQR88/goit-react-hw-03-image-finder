@@ -3,7 +3,7 @@ import * as ImageService from './Services/Api';
 import { Searchbar } from './Searchbar/Searchbar';
 import { ImageGalleryItem } from './ImageGalleryItem/ImageGalleryItem';
 import { ImageGallery } from './ImageGallery/ImageGallery';
-import { Button } from './Button/Button';
+import { Button } from './Button/Button.jsx';
 import { FidgetSpinner } from 'react-loader-spinner';
 
 class App extends Component {
